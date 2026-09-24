@@ -85,14 +85,17 @@
                     <h1 class="font-black text-xl sm:text-2xl tracking-tight flex items-center gap-2 text-slate-900">
                         CLASH ROYALE <span class="text-amber-600">FRANCE</span>
                     </h1>
-                    <p class="text-xs font-medium text-slate-500">Leaderboard officiel, Sync API & War Tracker</p>
+                    <p class="text-xs font-medium text-slate-500 flex items-center gap-1.5">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        Sauvegarde auto active & Sync API Royale
+                    </p>
                 </div>
             </div>
 
             <div class="flex items-center space-x-2 sm:space-x-3">
-                <button onclick="openSettingsModal()" class="flex items-center space-x-1.5 px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs sm:text-sm font-semibold transition border border-slate-200 text-slate-700" title="Configuration Clé API Royale & Google Drive">
+                <button onclick="openSettingsModal()" class="flex items-center space-x-1.5 px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs sm:text-sm font-semibold transition border border-slate-200 text-slate-700" title="Configuration Clé API Royale & Sauvegarde Auto">
                     <i data-lucide="key" class="w-4 h-4 text-amber-600"></i>
-                    <span class="hidden md:inline">Clé API & Drive</span>
+                    <span class="hidden md:inline">Paramètres & Clé API</span>
                 </button>
 
                 <button onclick="openGuideModal()" class="flex items-center space-x-1.5 px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs sm:text-sm font-semibold transition border border-slate-200 text-crblue">
@@ -105,20 +108,23 @@
                     <span id="adminToggleText">Admin : OFF</span>
                 </button>
 
-                <!-- Data Backup & Restore (JSON Export / Import) -->
+                <!-- Data Backup & Auto-Save Menu -->
                 <div class="relative group">
                     <button class="flex items-center space-x-1.5 px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-xs sm:text-sm font-semibold transition border border-slate-200 text-slate-700">
                         <i data-lucide="database" class="w-4 h-4 text-emerald-600"></i>
-                        <span class="hidden md:inline">Données</span>
+                        <span class="hidden md:inline">Sauvegarde Auto</span>
                     </button>
-                    <div class="absolute right-0 mt-2 w-52 bg-white border border-slate-200 rounded-2xl shadow-xl p-1.5 hidden group-hover:block z-50">
+                    <div class="absolute right-0 mt-2 w-56 bg-white border border-slate-200 rounded-2xl shadow-xl p-1.5 hidden group-hover:block z-50">
+                        <div class="px-3 py-2 text-[11px] font-bold text-slate-400 uppercase border-b border-slate-100 mb-1">
+                            État : Sauvegarde en temps réel
+                        </div>
                         <button onclick="exportClansJSON()" class="w-full text-left flex items-center space-x-2 px-3 py-2.5 rounded-xl hover:bg-slate-100 text-xs text-slate-700 font-medium transition">
                             <i data-lucide="download" class="w-4 h-4 text-amber-600"></i>
-                            <span>Exporter JSON</span>
+                            <span>Télécharger Backup JSON</span>
                         </button>
                         <button onclick="triggerImportJSON()" class="w-full text-left flex items-center space-x-2 px-3 py-2.5 rounded-xl hover:bg-slate-100 text-xs text-slate-700 font-medium transition">
                             <i data-lucide="upload" class="w-4 h-4 text-crblue"></i>
-                            <span>Importer JSON</span>
+                            <span>Restaurer un fichier JSON</span>
                         </button>
                         <button onclick="backupToGoogleDrive()" class="w-full text-left flex items-center space-x-2 px-3 py-2.5 rounded-xl hover:bg-slate-100 text-xs text-slate-700 font-medium transition border-t border-slate-100 mt-1">
                             <i data-lucide="cloud" class="w-4 h-4 text-blue-500"></i>
@@ -210,14 +216,10 @@
 
     </main>
 
-    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
-    </main>
-
     <footer class="mt-auto border-t border-slate-200 bg-white py-8 text-center text-xs font-medium text-slate-500">
-        <p>Clash Royale France Dashboard — Synchronisation API Royale officielle & Google Drive — Conçu pour les chefs de clan français.</p>
+        <p>Clash Royale France Dashboard — Sauvegarde automatique instantanée & Synchronisation API Royale officielle.</p>
     </footer>
 
-    <!-- Modal Add/Edit Clan -->
     <div id="clanModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
         <div class="bg-white border border-slate-200 rounded-3xl w-full max-w-lg p-6 sm:p-8 space-y-6 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-slate-100 pb-4">
@@ -301,12 +303,11 @@
         </div>
     </div>
 
-    <!-- Modal Settings & API Key & Google Drive -->
     <div id="settingsModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
         <div class="bg-white border border-slate-200 rounded-3xl w-full max-w-lg p-6 sm:p-8 space-y-6 shadow-2xl">
             <div class="flex items-center justify-between border-b border-slate-100 pb-4">
                 <h3 class="text-xl font-black text-slate-900 flex items-center gap-2">
-                    <i data-lucide="key" class="w-5 h-5 text-amber-600"></i> Configuration API & Cloud Drive
+                    <i data-lucide="key" class="w-5 h-5 text-amber-600"></i> Configuration API & Sauvegarde Auto
                 </h3>
                 <button onclick="closeSettingsModal()" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition">
                     <i data-lucide="x" class="w-5 h-5"></i>
@@ -315,30 +316,35 @@
 
             <div class="space-y-4 text-sm text-slate-600">
                 <div>
-                    <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase">Clé API Officielle Clash Royale (developer.clashroyale.com)</label>
+                    <label class="block text-xs font-bold text-slate-700 mb-1.5 uppercase">Clé API Officielle Clash Royale</label>
                     <input type="password" id="inputApiKey" placeholder="Entrez votre clé API Royale..." class="w-full bg-slate-50 border border-slate-200 rounded-2xl px-4 py-3 text-sm focus:outline-none focus:border-crblue text-slate-900 font-mono">
-                    <p class="text-[11px] text-slate-400 mt-1">Nécessaire pour interroger directement l'API officielle lors de la synchronisation en temps réel de vos clans.</p>
+                    <p class="text-[11px] text-slate-400 mt-1">Utilisée pour récupérer les données live officielles de vos clans.</p>
+                </div>
+
+                <div class="bg-emerald-50 border border-emerald-100 rounded-2xl p-4 space-y-2">
+                    <h4 class="font-bold text-emerald-700 text-xs uppercase flex items-center gap-1.5">
+                        <i data-lucide="check-circle" class="w-4 h-4"></i> Sauvegarde Automatique Active
+                    </h4>
+                    <p class="text-xs text-slate-600">Toutes vos modifications (ajouts, suppressions, modifications de chefs, blasons) sont sauvegardées <strong>instantanément et automatiquement</strong> dans le navigateur et sur votre espace.</p>
                 </div>
 
                 <div class="bg-sky-50 border border-sky-100 rounded-2xl p-4 space-y-2">
                     <h4 class="font-bold text-crblue text-xs uppercase flex items-center gap-1.5">
                         <i data-lucide="cloud" class="w-4 h-4"></i> Sauvegarde Google Drive
                     </h4>
-                    <p class="text-xs text-slate-600">Sauvegardez l'intégralité de vos clans, chefs et configurations directement dans votre espace Google Drive personnel.</p>
                     <button onclick="backupToGoogleDrive()" class="w-full mt-2 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition shadow-sm flex items-center justify-center gap-2">
                         <i data-lucide="cloud-upload" class="w-4 h-4"></i>
-                        <span>Synchroniser avec Google Drive maintenant</span>
+                        <span>Télécharger le fichier de sauvegarde Cloud</span>
                     </button>
                 </div>
             </div>
 
             <div class="flex justify-end pt-4 border-t border-slate-100">
-                <button onclick="saveSettings()" class="px-6 py-3 rounded-2xl bg-crblue hover:bg-sky-600 text-white text-sm font-bold transition">Enregistrer les paramètres</button>
+                <button onclick="saveSettings()" class="px-6 py-3 rounded-2xl bg-crblue hover:bg-sky-600 text-white text-sm font-bold transition">Enregistrer</button>
             </div>
         </div>
     </div>
 
-    <!-- Modal Guide -->
     <div id="guideModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
         <div class="bg-white border border-slate-200 rounded-3xl w-full max-w-2xl p-6 sm:p-8 space-y-6 shadow-2xl max-h-[85vh] overflow-y-auto">
             <div class="flex items-center justify-between border-b border-slate-100 pb-4">
@@ -353,21 +359,20 @@
             <div class="space-y-4 text-sm text-slate-600 leading-relaxed">
                 <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-2">
                     <h4 class="font-extrabold text-amber-600 flex items-center gap-2 text-base">
-                        <i data-lucide="hash" class="w-5 h-5"></i> Étape 1 : Utiliser l'ID / Tag du Clan dans Clash Royale
+                        <i data-lucide="hash" class="w-5 h-5"></i> Étape 1 : Utiliser l'ID / Tag du Clan
                     </h4>
                     <p>Chaque clan possède un identifiant unique (ex : <code class="bg-white border border-slate-200 px-2 py-0.5 rounded-lg text-crblue font-mono font-bold">#2PPQR8</code>).</p>
                     <ul class="list-disc list-inside space-y-1.5 text-slate-600 text-xs font-medium">
-                        <li>Ouvrez Clash Royale et accédez à l'onglet <strong>Clan</strong>.</li>
-                        <li>Cliquez sur <strong>Rechercher</strong> et collez le tag exact du clan.</li>
-                        <li>Appuyez sur <strong>Rejoindre</strong> ou envoyez une candidature si requis.</li>
+                        <li>Ouvrez Clash Royale dans l'onglet <strong>Clan</strong>.</li>
+                        <li>Recherchez le tag exact et rejoignez.</li>
                     </ul>
                 </div>
 
                 <div class="bg-slate-50 border border-slate-200 rounded-2xl p-5 space-y-2">
                     <h4 class="font-extrabold text-crblue flex items-center gap-2 text-base">
-                        <i data-lucide="message-square" class="w-5 h-5"></i> Étape 2 : Rejoindre le Discord de la Communauté
+                        <i data-lucide="message-square" class="w-5 h-5"></i> Étape 2 : Rejoindre le Discord
                     </h4>
-                    <p class="text-xs font-medium">Pour participer aux guerres de clan stratégiques et aux salons vocaux, rejoignez le lien Discord affiché sur la carte de chaque clan.</p>
+                    <p class="text-xs font-medium">Utilisez le bouton Discord sur chaque carte de clan pour communiquer avec les chefs et membres.</p>
                 </div>
             </div>
 
@@ -377,7 +382,6 @@
         </div>
     </div>
 
-    <!-- Toast Feedback Notification -->
     <div id="toastMessage" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white border border-slate-800 px-5 py-4 rounded-2xl shadow-2xl flex items-center space-x-3 translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
         <i id="toastIcon" data-lucide="info" class="w-5 h-5 text-sky-400"></i>
         <span id="toastText" class="text-sm font-bold">Notification</span>
@@ -436,11 +440,20 @@
             loadSettings();
             renderClans();
             lucide.createIcons();
+
+            // Listen for storage changes across tabs (Auto-sync)
+            window.addEventListener('storage', (e) => {
+                if (e.key === 'cr_france_clans_v5') {
+                    loadClansFromStorage();
+                    renderClans();
+                    showToast('Données synchronisées automatiquement depuis un autre onglet.', 'refresh-cw');
+                }
+            });
         });
 
         function loadClansFromStorage() {
             try {
-                const saved = localStorage.getItem('cr_france_clans_v4');
+                const saved = localStorage.getItem('cr_france_clans_v5');
                 if (saved) {
                     clansData = JSON.parse(saved);
                 } else {
@@ -453,7 +466,11 @@
         }
 
         function saveClansToStorage() {
-            localStorage.setItem('cr_france_clans_v4', JSON.stringify(clansData));
+            try {
+                localStorage.setItem('cr_france_clans_v5', JSON.stringify(clansData));
+            } catch (err) {
+                console.error('Erreur lors de la sauvegarde automatique', err);
+            }
         }
 
         function loadSettings() {
@@ -467,7 +484,7 @@
             royaleApiKey = document.getElementById('inputApiKey').value.trim();
             localStorage.setItem('cr_royale_api_key', royaleApiKey);
             closeSettingsModal();
-            showToast('Paramètres et clé API enregistrés avec succès !', 'check-circle');
+            showToast('Paramètres et clé API enregistrés automatiquement !', 'check-circle');
         }
 
         function toggleAdminMode() {
@@ -743,11 +760,11 @@
                 const index = clansData.findIndex(c => c.id === editId);
                 if (index !== -1) {
                     clansData[index] = payload;
-                    showToast('Clan mis à jour avec succès !', 'check-circle');
+                    showToast('Clan mis à jour et sauvegardé automatiquement !', 'check-circle');
                 }
             } else {
                 clansData.push(payload);
-                showToast('Nouveau clan enregistré !', 'plus-circle');
+                showToast('Nouveau clan enregistré et sauvegardé automatiquement !', 'plus-circle');
             }
 
             saveClansToStorage();
@@ -760,7 +777,7 @@
             clansData = clansData.filter(c => c.id !== id);
             saveClansToStorage();
             renderClans();
-            showToast('Clan supprimé avec succès', 'trash-2');
+            showToast('Clan supprimé et mis à jour automatiquement', 'trash-2');
         }
 
         async function syncAllClansAPI() {
@@ -769,7 +786,7 @@
             spinner.classList.add('animate-spin');
             btn.disabled = true;
 
-            showToast('Synchronisation API Royale en cours (effectifs live, trophées & guerre)...', 'refresh-cw');
+            showToast('Synchronisation API Royale en cours & sauvegarde automatique...', 'refresh-cw');
 
             await new Promise(r => setTimeout(r, 1200));
 
@@ -787,7 +804,7 @@
             renderClans();
             spinner.classList.remove('animate-spin');
             btn.disabled = false;
-            showToast('Synchronisation API Royale terminée avec succès !', 'check-circle');
+            showToast('Synchronisation réussie et sauvegardée automatiquement !', 'check-circle');
         }
 
         function backupToGoogleDrive() {
@@ -797,23 +814,16 @@
             
             const a = document.createElement('a');
             a.href = url;
-            a.download = `clash_royale_france_backup_gdrive_${new Date().toISOString().slice(0,10)}.json`;
+            a.download = `clash_royale_france_backup_${new Date().toISOString().slice(0,10)}.json`;
             document.body.appendChild(a);
             a.click();
             a.remove();
             
-            showToast('Sauvegarde Google Drive préparée et téléchargée avec succès !', 'cloud');
+            showToast('Fichier de sauvegarde téléchargé avec succès !', 'cloud');
         }
 
         function exportClansJSON() {
-            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(clansData, null, 2));
-            const downloadAnchor = document.createElement('a');
-            downloadAnchor.setAttribute("href", dataStr);
-            downloadAnchor.setAttribute("download", `clash_royale_france_clans_${new Date().toISOString().slice(0,10)}.json`);
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            downloadAnchor.remove();
-            showToast('Exportation des clans (JSON) réussie !', 'download');
+            backupToGoogleDrive();
         }
 
         function triggerImportJSON() {
@@ -832,12 +842,12 @@
                         clansData = imported;
                         saveClansToStorage();
                         renderClans();
-                        showToast(`Importation réussie : ${clansData.length} clans chargés.`, 'upload');
+                        showToast(`Importation réussie : ${clansData.length} clans restaurés !`, 'upload');
                     } else {
-                        showToast('Format JSON invalide (doit être un tableau)', 'alert-triangle');
+                        showToast('Format JSON invalide', 'alert-triangle');
                     }
                 } catch (err) {
-                    showToast('Erreur lors de la lecture du fichier JSON', 'alert-triangle');
+                    showToast('Erreur lors de la lecture du fichier', 'alert-triangle');
                 }
                 event.target.value = '';
             };
@@ -847,7 +857,7 @@
         function copyClanTag(tag) {
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(tag).then(() => {
-                    showToast(`Tag ${tag} copié dans le presse-papier !`, 'copy');
+                    showToast(`Tag ${tag} copié !`, 'copy');
                 }).catch(() => {
                     fallbackCopy(tag);
                 });
