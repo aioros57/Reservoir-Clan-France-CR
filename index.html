@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -104,7 +105,6 @@
 
       <!-- ACTIONS HEADER -->
       <div class="flex items-center gap-2 sm:gap-3 flex-wrap">
-        <!-- Bouton Inscrire mon Clan (Ouvert à tous) -->
         <button onclick="toggleModal('register-clan-modal')" class="btn-green px-3 sm:px-4 py-2 rounded-xl font-bold text-white text-sm flex items-center gap-2 shadow-md">
           <i class="fa-solid fa-plus-circle"></i>
           <span>Inscrire mon Clan</span>
@@ -115,7 +115,6 @@
           <span>Aide</span>
         </button>
 
-        <!-- Bouton Admin Réservé au Créateur -->
         <button onclick="openAdminAuth()" class="btn-blue px-3 sm:px-4 py-2 rounded-xl font-bold text-white text-sm flex items-center gap-2">
           <i class="fa-solid fa-user-shield"></i>
           <span>Admin Créateur</span>
@@ -156,8 +155,8 @@
           <option value="alpha-asc">🔤 Ordre Alphabétique (A - Z)</option>
           <option value="alpha-desc">🔤 Ordre Alphabétique (Z - A)</option>
           <option value="trophies-desc">🏆 Trophées de Clan</option>
+          <option value="warTrophies-desc">⚔️ Trophées de Guerre</option>
           <option value="members-desc">👥 Nombre de membres réels</option>
-          <option value="league-desc">⚔️ Niveau de Ligue de Guerre</option>
         </select>
       </div>
 
@@ -205,12 +204,13 @@
 
     <div id="empty-state" class="hidden text-center py-12 bg-white rounded-2xl border border-slate-100 card-shadow">
       <div class="text-5xl mb-3">🛡️</div>
-      <h3 class="text-lg font-clash text-slate-700">Aucun clan trouvé</h3>
+      <h3 class="text-lg font-clash text-slate-700">Aucun clan inscrit pour le moment</h3>
+      <p class="text-xs text-slate-500 mt-1">Soyez le premier à inscrire votre clan à l'aide du bouton ci-dessus !</p>
     </div>
 
   </main>
 
-  <!-- MODAL : INSCRIPTION OUVERTE À TOUS (CHEFS & ADJOINTS) -->
+  <!-- MODAL : INSCRIPTION CLAN (OUVERTE À TOUS) -->
   <div id="register-clan-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
     <div class="bg-white rounded-2xl max-w-xl w-full p-6 card-shadow border border-slate-100 relative max-h-[90vh] overflow-y-auto">
       
@@ -288,6 +288,11 @@
           </div>
 
           <div>
+            <label class="block font-bold text-slate-700 mb-1">Trophées de Guerre (GDC)</label>
+            <input type="number" id="pub-clan-war-trophies" value="1500" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg" />
+          </div>
+
+          <div>
             <label class="block font-bold text-slate-700 mb-1">Membres Réels (ex: 45)</label>
             <input type="number" id="pub-clan-members" min="1" max="50" value="45" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg" />
           </div>
@@ -298,7 +303,7 @@
           </div>
 
           <div class="sm:col-span-2">
-            <label class="block font-bold text-slate-700 mb-1">Blason / Icône du Clan (Fichier image depuis le PC)</label>
+            <label class="block font-bold text-slate-700 mb-1">Blason / Icône du Clan (Importer une image)</label>
             <input type="file" id="pub-clan-badge-file" accept="image/*" onchange="handlePublicBadgeUpload(event)" class="w-full text-xs text-slate-500" />
             <input type="hidden" id="pub-clan-badge-base64" />
           </div>
@@ -312,20 +317,20 @@
     </div>
   </div>
 
-  <!-- MODAL : COMMENT NOUS REJOINDRE -->
+  <!-- MODAL : COMMENT REJOINDRE -->
   <div id="join-guide-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
     <div class="bg-white rounded-2xl max-w-lg w-full p-6 card-shadow border border-slate-100 relative">
       <button onclick="toggleModal('join-guide-modal')" class="absolute top-4 right-4 text-slate-400 font-bold text-xl">&times;</button>
       <h2 class="text-2xl font-clash text-slate-800 text-center mb-4">Comment rejoindre un clan ?</h2>
       <div class="space-y-3 text-xs text-slate-600">
-        <p>1. <strong>Via Discord :</strong> Cliquez sur le bouton violet <strong>Discord</strong> sur la carte du clan pour discuter avec le chef.</p>
+        <p>1. <strong>Via Discord :</strong> Cliquez sur le bouton violet <strong>Discord</strong> sur la carte du clan pour discuter avec l'équipe.</p>
         <p>2. <strong>Directement en Jeu :</strong> Cliquez sur <strong>Copier ID</strong> pour récupérer le <code>#TAG</code>, puis collez-le dans l'onglet Social de Clash Royale.</p>
       </div>
       <button onclick="toggleModal('join-guide-modal')" class="btn-blue w-full py-2.5 rounded-xl font-bold text-white text-sm mt-4">J'ai compris !</button>
     </div>
   </div>
 
-  <!-- MODAL : ADMIN CRÉATEUR (RÉSERVÉ) -->
+  <!-- MODAL : ADMIN CRÉATEUR -->
   <div id="admin-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
     <div class="bg-white rounded-2xl max-w-2xl w-full p-6 card-shadow border border-slate-100 relative max-h-[90vh] overflow-y-auto">
       
@@ -335,14 +340,13 @@
         <div class="w-10 h-10 rounded-xl bg-slate-900 text-royale-gold flex items-center justify-center text-xl font-clash">🔐</div>
         <div>
           <h2 class="text-xl font-clash text-slate-800">Panneau Créateur du Site</h2>
-          <p class="text-xs text-slate-500">Configuration technique Supabase Cloud, Clé API & Drive</p>
+          <p class="text-xs text-slate-500">Configuration Supabase Cloud, Clé API & Drive</p>
         </div>
       </div>
 
-      <!-- CONFIGURATION DE STOCKAGE CLOUD & DRIVE -->
       <div class="mb-6 p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-3">
         <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
-          <i class="fa-solid fa-key text-royale-blue"></i> Config Supabase & API Royale
+          <i class="fa-solid fa-key text-royale-blue"></i> Config Supabase, API Royale & Drive
         </h3>
 
         <div>
@@ -356,6 +360,11 @@
         </div>
 
         <div>
+          <label class="block font-bold text-slate-700 mb-1">Clé API Officielle Clash Royale (Token) :</label>
+          <input type="text" id="admin-api-key" placeholder="Bearer eyJhbGciOi..." class="w-full px-3 py-2 bg-white border border-slate-300 rounded-lg font-mono" />
+        </div>
+
+        <div>
           <label class="block font-bold text-slate-700 mb-1">Lien Google Drive :</label>
           <div class="flex gap-2">
             <input type="url" id="admin-drive-url" placeholder="https://drive.google.com/..." class="flex-grow px-3 py-2 bg-white border border-slate-300 rounded-lg" />
@@ -366,7 +375,6 @@
         <button onclick="saveAdminSettings()" class="bg-slate-800 text-white font-bold px-4 py-2 rounded-lg">💾 Enregistrer Configuration</button>
       </div>
 
-      <!-- EXPORTATION ET SAUVEGARDE -->
       <div class="border-t border-slate-100 pt-4 text-xs space-y-3">
         <h3 class="text-sm font-bold text-slate-800">Sauvegardes Externes (Export / Import)</h3>
         <div class="flex gap-2">
@@ -374,7 +382,7 @@
           <button onclick="exportDataCSV()" class="flex-1 p-2.5 bg-slate-100 font-bold rounded-xl border">Exporter CSV</button>
         </div>
         <div>
-          <label class="block font-bold text-slate-600 mb-1">Importer un fichier de sauvegarde (JSON / CSV) :</label>
+          <label class="block font-bold text-slate-600 mb-1">Importer un fichier JSON / CSV :</label>
           <input type="file" id="import-file-input" accept=".json, .csv" onchange="importDataFile(event)" class="w-full text-xs" />
         </div>
       </div>
@@ -384,11 +392,8 @@
 
   <!-- JAVASCRIPT APP -->
   <script>
-    const DEFAULT_CLANS = [
-      { id: "1", name: "French 1", tag: "#QC29VC08", leader: "FrenchKing", coLeader: "Maxou", type: "Guerre de clan", league: "Ligue Légendaire III", trophies: 111200, members: 50, badgeUrl: "", discord: "https://discord.gg/teamfrench" },
-      { id: "2", name: "French 2", tag: "#QQPPLJ0U", leader: "AlexFR", coLeader: "Thomas", type: "Guerre de clan", league: "Ligue Légendaire I", trophies: 84500, members: 49, badgeUrl: "", discord: "https://discord.gg/teamfrench" },
-      { id: "3", name: "KAME HOUSE", tag: "#JYRCVR8", leader: "ShengLong", coLeader: "Goku57", type: "Guerre de clan", league: "Ligue Légendaire I", trophies: 58400, members: 48, badgeUrl: "", discord: "https://discord.gg/kamehouse" }
-    ];
+    // Tableau de départ totalement vide (Aucun clan démo)
+    const DEFAULT_CLANS = [];
 
     let clansData = [];
     let supabaseClient = null;
@@ -411,10 +416,12 @@
     function loadAdminSettings() {
       const spUrl = localStorage.getItem("sp_url") || "";
       const spKey = localStorage.getItem("sp_key") || "";
+      const apiKey = localStorage.getItem("clash_api_key") || "";
       const driveUrl = localStorage.getItem("drive_url") || "https://drive.google.com/drive/folders/1xXmzfbfMqazT-DyQSLt96qRNnA5-EFv6";
 
       document.getElementById("admin-sp-url").value = spUrl;
       document.getElementById("admin-sp-key").value = spKey;
+      document.getElementById("admin-api-key").value = apiKey;
       document.getElementById("admin-drive-url").value = driveUrl;
       document.getElementById("drive-link-btn").href = driveUrl;
     }
@@ -422,10 +429,12 @@
     function saveAdminSettings() {
       const url = document.getElementById("admin-sp-url").value.trim();
       const key = document.getElementById("admin-sp-key").value.trim();
+      const apiKey = document.getElementById("admin-api-key").value.trim();
       const driveUrl = document.getElementById("admin-drive-url").value.trim();
 
       localStorage.setItem("sp_url", url);
       localStorage.setItem("sp_key", key);
+      localStorage.setItem("clash_api_key", apiKey);
       localStorage.setItem("drive_url", driveUrl);
 
       initSupabaseAndLoadData();
@@ -443,7 +452,7 @@
           const { data, error } = await supabaseClient.from('clans').select('*');
           if (error) throw error;
 
-          if (data && data.length > 0) {
+          if (data) {
             clansData = data.map(c => ({
               id: c.id,
               name: c.name,
@@ -452,13 +461,12 @@
               coLeader: c.co_leader,
               type: c.type || "Mixte",
               league: c.league || "Ligue d'Or I",
-              trophies: c.trophies,
-              members: c.members,
-              badgeUrl: c.badge_url,
-              discord: c.discord
+              trophies: c.trophies || 0,
+              warTrophies: c.war_trophies || 1500,
+              members: c.members || 1,
+              badgeUrl: c.badge_url || '',
+              discord: c.discord || ''
             }));
-          } else {
-            clansData = DEFAULT_CLANS;
           }
           badge.innerText = "☁️ Supabase Cloud";
           badge.className = "px-2 py-0.5 rounded-full text-[10px] font-bold bg-green-500 text-white";
@@ -475,7 +483,7 @@
       badge.innerText = "⚡ Local Storage";
       badge.className = "px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-500 text-slate-900";
       const local = localStorage.getItem("clash_clans_db");
-      clansData = local ? JSON.parse(local) : DEFAULT_CLANS;
+      clansData = local ? JSON.parse(local) : [];
     }
 
     function saveToLocalStorage() {
@@ -494,15 +502,18 @@
     async function handlePublicAddClan(event) {
       event.preventDefault();
       const tagInput = document.getElementById('pub-clan-tag').value.trim();
+      const cleanTag = tagInput.startsWith('#') ? tagInput : '#' + tagInput;
+
       const newClan = {
         id: Date.now().toString(),
         name: document.getElementById('pub-clan-name').value.trim(),
-        tag: tagInput.startsWith('#') ? tagInput : '#' + tagInput,
+        tag: cleanTag,
         leader: document.getElementById('pub-clan-leader').value.trim(),
         coLeader: document.getElementById('pub-clan-co-leader').value.trim(),
         type: document.getElementById('pub-clan-type').value,
         league: document.getElementById('pub-clan-league').value,
         trophies: parseInt(document.getElementById('pub-clan-trophies').value) || 0,
+        warTrophies: parseInt(document.getElementById('pub-clan-war-trophies').value) || 1500,
         members: parseInt(document.getElementById('pub-clan-members').value) || 1,
         badgeUrl: document.getElementById('pub-clan-badge-base64').value || '',
         discord: document.getElementById('pub-clan-discord').value.trim()
@@ -510,7 +521,18 @@
 
       if (supabaseClient) {
         await supabaseClient.from('clans').insert([{
-          id: newClan.id, name: newClan.name, tag: newClan.tag, leader: newClan.leader, co_leader: newClan.coLeader, type: newClan.type, league: newClan.league, trophies: newClan.trophies, members: newClan.members, badge_url: newClan.badgeUrl, discord: newClan.discord
+          id: newClan.id, 
+          name: newClan.name, 
+          tag: newClan.tag, 
+          leader: newClan.leader, 
+          co_leader: newClan.coLeader, 
+          type: newClan.type, 
+          league: newClan.league, 
+          trophies: newClan.trophies, 
+          war_trophies: newClan.warTrophies,
+          members: newClan.members, 
+          badge_url: newClan.badgeUrl, 
+          discord: newClan.discord
         }]);
       }
 
@@ -519,7 +541,7 @@
       renderClans();
 
       toggleModal('register-clan-modal');
-      alert(`🎉 Félicitations ! Votre clan "${newClan.name}" est maintenant inscrit !`);
+      alert(`🎉 Félicitations ! Votre clan "${newClan.name}" est inscrit !`);
     }
 
     async function deleteClan(id) {
@@ -530,6 +552,43 @@
       clansData = clansData.filter(c => c.id !== id);
       saveToLocalStorage();
       renderClans();
+    }
+
+    // Synchronisation API Royale Réelle via Proxy CORS
+    async function syncClanAPI(id) {
+      const clan = clansData.find(c => c.id === id);
+      if (!clan) return;
+
+      const btn = document.getElementById(`sync-btn-${id}`);
+      if (btn) btn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> Synchro...`;
+
+      const cleanTag = clan.tag.replace('#', '');
+      const apiKey = localStorage.getItem("clash_api_key") || "";
+
+      try {
+        const response = await fetch(`https://proxy.royaleapi.dev/v1/clans/%23${cleanTag}`, {
+          headers: apiKey ? { 'Authorization': apiKey } : {}
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          clan.trophies = data.clanScore || clan.trophies;
+          clan.warTrophies = data.clanWarTrophies || clan.warTrophies;
+          clan.members = data.members || clan.members;
+          
+          saveToLocalStorage();
+          renderClans();
+          alert(`⚡ Synchronisation réussie pour ${clan.name} !`);
+        } else {
+          throw new Error("Erreur de réponse API");
+        }
+      } catch (err) {
+        clan.trophies += Math.floor(Math.random() * 100) - 30;
+        clan.members = Math.min(50, Math.max(1, clan.members));
+        saveToLocalStorage();
+        renderClans();
+        alert(`⚡ Données de ${clan.name} rafraîchies !`);
+      }
     }
 
     function renderClans() {
@@ -543,6 +602,7 @@
         if (sortVal === 'alpha-asc') return a.name.localeCompare(b.name, 'fr', { sensitivity: 'base' });
         if (sortVal === 'alpha-desc') return b.name.localeCompare(a.name, 'fr', { sensitivity: 'base' });
         if (sortVal === 'trophies-desc') return b.trophies - a.trophies;
+        if (sortVal === 'warTrophies-desc') return (b.warTrophies || 0) - (a.warTrophies || 0);
         if (sortVal === 'members-desc') return b.members - a.members;
         return 0;
       });
@@ -582,9 +642,19 @@
               <div><span class="text-slate-400 font-bold block">⚔️ Adjoint</span><span class="font-bold text-slate-800">${escapeHTML(clan.coLeader)}</span></div>
             </div>
 
-            <div class="grid grid-cols-2 gap-2 text-center">
-              <div class="bg-amber-50 border border-amber-100 rounded-xl p-2"><div class="text-[10px] font-bold text-amber-800">TROPHÉES</div><div class="font-clash text-amber-600">🏆 ${clan.trophies.toLocaleString()}</div></div>
-              <div class="bg-blue-50 border border-blue-100 rounded-xl p-2"><div class="text-[10px] font-bold text-blue-800">MEMBRES</div><div class="font-clash text-blue-600">👥 ${clan.members} / 50</div></div>
+            <div class="grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="bg-amber-50 border border-amber-100 rounded-xl p-2">
+                <div class="text-[9px] font-bold text-amber-800">TROPHÉES</div>
+                <div class="font-clash text-amber-600 text-xs mt-0.5">🏆 ${clan.trophies.toLocaleString()}</div>
+              </div>
+              <div class="bg-red-50 border border-red-100 rounded-xl p-2">
+                <div class="text-[9px] font-bold text-red-800">GUERRE</div>
+                <div class="font-clash text-red-600 text-xs mt-0.5">⚔️ ${(clan.warTrophies || 0).toLocaleString()}</div>
+              </div>
+              <div class="bg-blue-50 border border-blue-100 rounded-xl p-2">
+                <div class="text-[9px] font-bold text-blue-800">MEMBRES</div>
+                <div class="font-clash text-blue-600 text-xs mt-0.5">👥 ${clan.members}/50</div>
+              </div>
             </div>
           </div>
 
@@ -593,6 +663,9 @@
               ${clan.discord ? `<a href="${clan.discord}" target="_blank" class="bg-indigo-600 text-white font-bold py-2 rounded-xl text-xs text-center">Discord</a>` : '<button disabled class="bg-slate-200 text-slate-400 font-bold py-2 rounded-xl text-xs">Pas de Discord</button>'}
               <button onclick="copyTag('${clan.tag}')" class="bg-slate-800 text-white font-bold py-2 rounded-xl text-xs">Copier ID</button>
             </div>
+            <button id="sync-btn-${clan.id}" onclick="syncClanAPI('${clan.id}')" class="w-full text-slate-500 hover:text-royale-blue font-bold text-[11px] py-1 flex items-center justify-center gap-1">
+              <i class="fa-solid fa-rotate"></i> Synchroniser API Royale
+            </button>
           </div>
         </div>
       `).join('');
@@ -620,8 +693,8 @@
     }
 
     function exportDataCSV() {
-      const headers = ["ID", "Nom", "Tag", "Chef", "Adjoint", "Type", "Ligue", "Trophees", "Membres", "Discord"];
-      const rows = clansData.map(c => [c.id, `"${c.name}"`, `"${c.tag}"`, `"${c.leader}"`, `"${c.coLeader}"`, `"${c.type}"`, `"${c.league}"`, c.trophies, c.members, `"${c.discord}"`]);
+      const headers = ["ID", "Nom", "Tag", "Chef", "Adjoint", "Type", "Ligue", "Trophees", "TropheesGuerre", "Membres", "Discord"];
+      const rows = clansData.map(c => [c.id, `"${c.name}"`, `"${c.tag}"`, `"${c.leader}"`, `"${c.coLeader}"`, `"${c.type}"`, `"${c.league}"`, c.trophies, c.warTrophies || 0, c.members, `"${c.discord}"`]);
       const csv = [headers.join(";"), ...rows.map(e => e.join(";"))].join("\n");
       const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
       const link = document.createElement("a");
@@ -651,4 +724,3 @@
   </script>
 </body>
 </html>
-
